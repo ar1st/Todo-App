@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
-
+import '../bootstrap.css';
 class TodoApp extends Component {
     render() {
         return (
             <div className="TodoApp">
                 <Router>
+                    <HeaderComponent></HeaderComponent>
                     <Switch>
                         <Route path="/" exact component={LoginComponent} />
                         <Route path="/login" component={LoginComponent} />
@@ -13,12 +14,43 @@ class TodoApp extends Component {
                         <Route path="/todos" component={ListTodosComponent} />
                         <Route component={ErrorComponent} />
                     </Switch>
+                    <FooterComponent></FooterComponent>
                 </Router>
 
             </div>
         )
     }
 
+}
+
+class HeaderComponent extends Component{
+    render(){
+        return(
+            <header>
+                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <div className="navbar-brand">Aris</div>
+                    <ul className="navbar-nav">
+                        <li><Link className="nav-link" to="/welcome/aris">Home</Link></li>
+                        <li><Link className="nav-link" to="/todos">Todos</Link></li>
+                    </ul>
+                    <ul className="navbar-nav navbar-collapse justify-content-end">
+                        <li><Link className="nav-link" to="/login">Log in</Link></li>
+                        <li><Link className="nav-link" to="/logout">Log out</Link></li>
+                    </ul>
+                </nav>
+            </header>
+        )
+    }
+}
+
+class FooterComponent extends Component{
+    render(){
+        return(
+            <div>
+                <hr/>Footer
+            </div>
+        )
+    }
 }
 
 class LoginComponent extends Component {
@@ -69,7 +101,7 @@ class LoginComponent extends Component {
 class WelcomeComponent extends Component {
     render() {
         return <div>
-            Welcome {this.props.match.params.name}
+            Welcome {this.props.match.params.name}.
             Manage your todos <Link to="/todos">here</Link>.
             </div>
     }
