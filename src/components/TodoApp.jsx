@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
 class TodoApp extends Component {
     render() {
         return (
             <div className="TodoApp">
-                <LoginComponent/>
+                <Router>
+                    <Route path="/" exact component={LoginComponent}/>
+                    <Route path="/login" component={LoginComponent}/>
+                    <Route path="/welcome" component={WelcomeComponent}/>
+                </Router>
+                
             </div>
         )
     }
@@ -42,12 +48,10 @@ class LoginComponent extends Component {
     loginClicked = () =>{
         if (this.state.username==='aris' 
         && this.state.password==='test'){
-            this.setState({showSuccessMessage:true})
-            this.setState({hasLoginFailed:false})
+            this.props.history.push("/welcome")
         } 
         else{
-            this.setState({showSuccessMessage:false})
-            this.setState({hasLoginFailed:true})
+            
         }
     }
 
@@ -60,19 +64,25 @@ class LoginComponent extends Component {
     }
 }
 
-function ShowInvalidCredentials(props){
-    if (props.hasLoginFailed){
-        return <div>Invalid Credenials</div>
+class WelcomeComponent extends Component{
+    render(){
+        return <div>Welcome</div>
     }
-    return null
 }
 
-function ShowLoginSuccessMessage(props){
-    if (props.showSuccessMessage){
-        return <div>Successful Login</div>
-    }
-    return null
-}
+// function ShowInvalidCredentials(props){
+//     if (props.hasLoginFailed){
+//         return <div>Invalid Credenials</div>
+//     }
+//     return null
+// }
+
+// function ShowLoginSuccessMessage(props){
+//     if (props.showSuccessMessage){
+//         return <div>Successful Login</div>
+//     }
+//     return null
+// }
 
 
 export default TodoApp
