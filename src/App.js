@@ -9,6 +9,7 @@ class App extends Component {
       <div className="App">
         <TodoApp/>
         this is strange
+        and this is even more
       </div>
     );
   }
