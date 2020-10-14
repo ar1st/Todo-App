@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import '../bootstrap.css';
 import '../App.css';
+import AuthenticationService from './AuthenticationService.js'
 
 class TodoApp extends Component {
     render() {
@@ -28,17 +29,19 @@ class TodoApp extends Component {
 
 class HeaderComponent extends Component{
     render(){
+        const isUserLoggedIn = AuthenticationService.isUserLogged()
+        console.log(isUserLoggedIn)
         return(
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <div className="navbar-brand">Aris</div>
                     <ul className="navbar-nav">
-                        <li><Link className="nav-link" to="/welcome/aris">Home</Link></li>
-                        <li><Link className="nav-link" to="/todos">Todos</Link></li>
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/aris">Home</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/todos">Todos</Link></li>}
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
-                        <li><Link className="nav-link" to="/login">Log in</Link></li>
-                        <li><Link className="nav-link" to="/logout">Log out</Link></li>
+                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Log in</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Log out</Link></li>}
                     </ul>
                 </nav>
             </header>
@@ -87,6 +90,7 @@ class LoginComponent extends Component {
     loginClicked = () => {
         if (this.state.username === 'aris'
             && this.state.password === 'test') {
+                AuthenticationService.registerSuccessfullLogin(this.state.username,this.state.password)
             this.props.history.push(`/welcome/${this.state.username}`)
         }
         else {
@@ -144,7 +148,7 @@ class ListTodosComponent extends Component{
                         <thead>
                             <tr>
                                 <th>Description</th>
-                                <th>Is completed?</th>
+                                <th>Is completed</th>
                                 <th>Target date</th>
                             </tr>
                         </thead>
@@ -152,7 +156,7 @@ class ListTodosComponent extends Component{
                             {
                                 this.state.todos.map(
                                     todo => 
-                                    <tr>
+                                    <tr key={todo.id}>
                                         <td>{todo.description}</td>
                                         <td>{todo.done.toString()}</td>
                                         <td>{todo.targetDate.toString()}</td>
