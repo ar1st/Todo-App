@@ -23,6 +23,7 @@ class TodoApp extends Component {
                         <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
                         <AuthenticatedRoute path="/logout" component={LogoutComponent} />
                         <Route component={ErrorComponent} />
+                        
                     </Switch>
                     <FooterComponent></FooterComponent>
                 </Router>
