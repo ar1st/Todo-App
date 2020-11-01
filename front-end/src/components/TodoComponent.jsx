@@ -3,21 +3,21 @@ import React, { Component } from 'react'
 import { Form,Field, Formik, ErrorMessage } from 'formik'
 import TodoDataService from '../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
+
 class TodoComponent extends Component{
 
     constructor(props){
         super(props)
         this.state= {
             id: this.props.match.params.id,
-            description : 'a',
+            description : '',
             targetDate : moment(new Date()).format('YYYY-MM-DD')
         }
-        console.log(this.props.match.params.id)
     }
 
     componentDidMount(){
 
-        if (this.state.id === -1)
+        if (this.state.id == -1)
             return
 
         let username = AuthenticationService.getLoggedInUserName()
@@ -66,10 +66,7 @@ class TodoComponent extends Component{
         return( <div>
                 <h1>TODO</h1>
                 <div className="container">
-                    <Formik initialValues={{
-                        description:description,
-                        targetDate: targetDate
-                        }}
+                    <Formik initialValues={{description,targetDate}}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -82,7 +79,7 @@ class TodoComponent extends Component{
                                     <ErrorMessage name="targetDate" component="div" className="alert alert-warning"/>
                                     <fieldset className="form-group">
                                         <label>Description</label>  
-                                        <Field className="form-control" type="text" name="description" value=""></Field>
+                                        <Field className="form-control" type="text" name="description" ></Field>
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Target Date</label>  

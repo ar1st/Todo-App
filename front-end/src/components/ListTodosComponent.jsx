@@ -20,7 +20,6 @@ class ListTodosComponent extends Component{
         TodoDataService.retrieveAllTodos(username)
           .then(
               response => {  
-                  console.log(response.data)
                 this.setState({todos : response.data})
               }
           ) 
