@@ -18,6 +18,17 @@ public class TodoHardCodedService {
         todos.add(new Todo(++idCounter, "aris", "aadawda React",new Date(), false));
     }
 
+    public Todo save(Todo todo){
+        if (todo.getId()==-1 || todo.getId() == 0){
+            todo.setId(++idCounter);
+        }else{
+            deleteById(todo.getId());
+        }
+        todos.add(todo);
+
+        return todo;
+    }
+
     public List<Todo> findAll(){
         return todos;
     }
