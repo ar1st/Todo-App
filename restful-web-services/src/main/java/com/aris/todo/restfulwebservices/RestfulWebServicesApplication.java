@@ -9,9 +9,4 @@ public class RestfulWebServicesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RestfulWebServicesApplication.class, args);
 	}
-//test
-	//test2
-	//test3
-	//test4
-	//test5
 }
